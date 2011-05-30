@@ -2,14 +2,16 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:security="http://www.springframework.org/schema/security"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security-2.0.xsd">
 
 	<security:global-method-security />
 
 	<security:http auto-config="false" entry-point-ref="authenticationProcessingFilterEntryPoint">
 		<security:intercept-url pattern="/index.jsp" filters="none" />
-		<security:intercept-url pattern="/*.action" access="ROLE_USER" />
+		<security:intercept-url pattern="/*.action" access="ROLE_Admin" />
 	</security:http>
 
 	<bean id="authenticationProcessingFilter" class="br.com.mobtelecom.security.MyAuthenticationProcessingFilter">
@@ -25,6 +27,20 @@ http://www.springframework.org/schema/security http://www.springframework.org/sc
 		<property name="loginFormUrl" value="/index.jsp" />
 		<property name="forceHttps" value="false" />
 	</bean>
+	
+	<!--
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="SELECT username, password, 'true' as enable FROM users WHERE username=?"
+				authorities-by-username-query="SELECT username, authority FROM users WHERE username=?"/>			
+		</authentication-provider>
+	</authentication-manager> -->
+		
+
+	
+	
+
 
     <!--
     Usernames/Passwords are
